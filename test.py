@@ -55,6 +55,7 @@ class FonceurStrategy(SoccerStrategy):
     def create_strategy(self):
         return FonceurStrategy()
 
+class goal
 
 team1=SoccerTeam("team1")
 team2=SoccerTeam("team2")
