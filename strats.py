@@ -1,22 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jan 19 16:54:25 2015
+from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerAction, SoccerStrategy
+from soccersimulator import PygletObserver,ConsoleListener,LogListener
+from soccersimulator import PLAYER_RADIUS, BALL_RADIUS
 
-@author: 3301393
-"""
-import soccersimulator 
-from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam 
-from soccersimulator import PygletObserver,ConsoleListener,LogListener, pyglet
-from soccersimulator import SoccerAction,SoccerStrategy
 
-v =Vector2D(3,2) 
-u =Vector2D(5,4)
-acc =Vector2D(2,2)
-tir =Vector2D(5,0)
-
-pos =Vector2D.create_random()
-shoot =Vector2D.create_random()
-
+"""strategie de test"""
 class RandomStrategy(SoccerStrategy):
     def __init__(self):
         self.name="Random"
@@ -25,15 +12,14 @@ class RandomStrategy(SoccerStrategy):
     def finish_battle(self,won):
         pass
     def compute_strategy(self,state,player,teamid):
-        pos = Vector2D.create_random(-5,5)
-        shoot = Vector2D.create_random(-5,5)
-        return SoccerAction(pos,shoot)
+	return SoccerAction(Vector2D.create_random(-0.1,0.1),Vector2D.create_random(-0.1,0.1))
     def copy(self):
         return RandomStrategy()
     def create_strategy(self):
         return RandomStrategy()
 
 
+"""strategie de retard"""
 class FonceurStrategy(SoccerStrategy):
     def __init__(self):
         self.name="Fonceur"
@@ -54,8 +40,8 @@ class FonceurStrategy(SoccerStrategy):
         return FonceurStrategy()
     def create_strategy(self):
         return FonceurStrategy()
-        
-class PasseSimple(SoccerStrategy):
+"""passe simple"""       
+"""class PasseSimple(SoccerStrategy):
     def __init__(self):
         self.name="PasseS"
     def start_battle(self,state):
@@ -71,9 +57,9 @@ class PasseSimple(SoccerStrategy):
     def copy(self):
         return PasseSimple()
     def create_strategy(self):
-        return PasseSimple()
+        return PasseSimple()"""
 
-
+"""aller vers la balle"""
 class AllerVersB(SoccerStrategy):
     def __init__(self):
         self.name="AllerVersB"
@@ -89,7 +75,9 @@ class AllerVersB(SoccerStrategy):
         return AllerVersB()
     def create_strategy(self):
         return AllerVersB()
-        
+
+
+"""tir au but"""        
 class TirBut(SoccerStrategy):
     def __init__(self):
         self.name="TirBut"
@@ -110,25 +98,65 @@ class TirBut(SoccerStrategy):
     def create_strategy(self):
         return TirBut()        
         
-        
-class GoalToGoal(SoccerStrategy):
+"""se met en position de goal puis fonce sur la balle"""        
+"""class GoalToGoal(SoccerStrategy):
     def __init__(self):
         self.name="GtoG"
+        stop=0
     def start_battle(self,state):
         pass
     def finish_battle(self,won):
         pass
     def compute_strategy(self,state,player,teamid):
-        global stop=0
-        if(player)
-        
-        
-team1=SoccerTeam("team1")
-team2=SoccerTeam("team2")
-team1.add_player(SoccerPlayer("t1j1",TirBut()))
-team2.add_player(SoccerPlayer("t2j1",FonceurStrategy()))
+        if(stop==0):      
+            if(PLAYER_RADIUS+BALL_RADIUS>state.ball.position-player.position):
+                TirBut.compute_strategy
+                stop=1
+            else:
+                return SoccerAction(Vector2D(0,0),Vector2D(0,0))
+        else:
+            FonceurStrategy.comput_startegy
+    def copy(self):
+        return GoalToGoal()
+    def create_strategy(self):
+        return GoalToGoal()    """
 
-battle=SoccerBattle(team1,team2)
-obs=PygletObserver()
-obs.set_soccer_battle(battle)
-pyglet.app.run()
+"""statique"""
+class Static(SoccerStrategy):
+    def __init__(self):
+        self.name="Static"
+        
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        return SoccerAction(Vector2D(0,0),Vector2D(0,0))
+    def copy(self):
+        return Static()
+    def create_strategy(self):
+        return Static()
+
+"""diriger vers un point"""
+class DirPoint(SoccerStrategy):
+    def __init__(self,Vector2D()):
+        self.point=Vector2D(x,y)        
+        self.name="VersPoint"
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        shoot=Vector()
+        dist = self.point - player.position
+        return SoccerAction(dist,shoot)          
+    def copy(self):
+        return DirPoint()
+    def create_strategy(self):
+        return DirPoint() 
+
+
+
+
+
+            
