@@ -148,6 +148,7 @@ class Static(SoccerStrategy):
         return DirPoint()
     def create_strategy(self):
         return DirPoint() """
+
 """goal"""
 class Goal(SoccerStrategy):
     def __init__(self):
