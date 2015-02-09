@@ -5,7 +5,12 @@ from strats import *
 
 team1=SoccerTeam("team1")
 team2=SoccerTeam("team2")
-team1.add_player(SoccerPlayer("Neuyer",DirPoint,1,2))
-team2.add_player(SoccerPlayer("t2j1",FonceurStrategy()))
-
-teams =[team1,team2]
+team4=SoccerTeam("team4")
+team1.add_player(SoccerPlayer("Neuyer",FonceurStrategy()))
+team2.add_player(SoccerPlayer("Ronaldo",FonceurStrategy()))
+team2.add_player(SoccerPlayer("1",TirBut()))
+team4.add_player(SoccerPlayer("2",FonceurStrategy()))
+team4.add_player(SoccerPlayer("3Neuyer",TirBut()))
+team4.add_player(SoccerPlayer("4Ronaldo",FonceurStrategy()))
+team4.add_player(SoccerPlayer("5Neuyer",TirBut()))
+teams =[team1,team2,team4]

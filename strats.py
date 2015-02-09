@@ -138,7 +138,7 @@ class Static(SoccerStrategy):
         return Static()
 
 """diriger vers un point"""
-class DirPoint(SoccerStrategy):
+"""class DirPoint(SoccerStrategy):
     def __init__(self,Vector2D()):
         self.point=Vector2D(x,y)        
         self.name="VersPoint"
@@ -153,7 +153,7 @@ class DirPoint(SoccerStrategy):
     def copy(self):
         return DirPoint()
     def create_strategy(self):
-        return DirPoint() 
+        return DirPoint() """
 
 
 
