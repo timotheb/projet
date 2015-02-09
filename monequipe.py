@@ -16,5 +16,4 @@ team4.add_player(SoccerPlayer("2",FonceurStrategy()))
 team4.add_player(SoccerPlayer("3Neuyer",FonceurStrategy()))
 team4.add_player(SoccerPlayer("4Ronaldo",FonceurStrategy()))
 team4.add_player(SoccerPlayer("5Neuyer",Goal()))
-teams =[team2,team3]
-"""team4,team2]"""
+teams =[team2,team3,team4,team2]
