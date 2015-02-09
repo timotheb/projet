@@ -17,7 +17,7 @@ if len(teams)>1:
     team2=teams[1]
 else:
     team2=team1.copy()
-bat= SoccerBattle(team1,team2)
+bat= SoccerBattle(team2,team1)
 obs=PygletObserver()
 obs.set_soccer_battle(bat)
 pyglet.app.run()

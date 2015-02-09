@@ -162,8 +162,27 @@ class Goal(SoccerStrategy):
     def finish_battle(self,won):
         pass
     def compute_strategy(self,state,player,teamid):
-        if(teamid==1):            
-            a= (ball.position-state.get_goal_center(2))/2
+        if(teamid==1):
+                        
+            a=(state.ball.position+state.get_goal_center(1))
+            a.x=a.x/2
+            a.y=a.y/2
+            a=a-player.position
+            return SoccerAction(a,Vector2D(10,-10))  
+        else:
+            a= (state.ball.position+state.get_goal_center(2))
+            a.x=a.x/2
+            a.y=a.y/2
+            """shoot = state.get_goal_center(2)-player.position"""
+            a=a-player.position
+            return SoccerAction(a,Vector2D(-10,-10))  
+            
+            
+    def copy(self):
+        return Goal()
+    def create_strategy(self):
+        return Goal()            
+            
             
 
 
