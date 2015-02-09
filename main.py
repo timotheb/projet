@@ -12,16 +12,12 @@ from soccersimulator import SoccerBattle
 from monequipe import teams
 
 
-team1=teams[2]
+team1=teams[0]
 if len(teams)>1:
     team2=teams[1]
 else:
     team2=team1.copy()
-battle=SoccerBattle(team1,team2)
+bat= SoccerBattle(team1,team2)
 obs=PygletObserver()
-obs.set_soccer_battle(battle)
+obs.set_soccer_battle(bat)
 pyglet.app.run()
-
-
-
-

@@ -124,8 +124,7 @@ class TirBut(SoccerStrategy):
 """statique"""
 class Static(SoccerStrategy):
     def __init__(self):
-        self.name="Static"
-        
+        self.name="Static"      
     def start_battle(self,state):
         pass
     def finish_battle(self,won):
@@ -154,7 +153,18 @@ class Static(SoccerStrategy):
         return DirPoint()
     def create_strategy(self):
         return DirPoint() """
-
+"""goal"""
+class Goal(SoccerStrategy):
+    def __init__(self):
+        self.name="Goal"
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        if(teamid==1):            
+            a= (ball.position-state.get_goal_center(2))/2
+            
 
 
 
