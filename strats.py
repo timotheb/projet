@@ -15,8 +15,7 @@ class RandomStrategy(SoccerStrategy):
 	return SoccerAction(Vector2D.create_random(-0.1,0.1),Vector2D.create_random(-0.1,0.1))
     def copy(self):
         return RandomStrategy()
-    def create_strategy(self):
-        return RandomStrategy()
+
 
 
 """strategie de retard"""
@@ -38,8 +37,7 @@ class FonceurStrategy(SoccerStrategy):
             return SoccerAction(pos,shoot)
     def copy(self):
         return FonceurStrategy()
-    def create_strategy(self):
-        return FonceurStrategy()
+
 """passe simple"""       
 """class PasseSimple(SoccerStrategy):
     def __init__(self):
@@ -73,8 +71,7 @@ class AllerVersB(SoccerStrategy):
         return SoccerAction(pos,shoot)
     def copy(self):
         return AllerVersB()
-    def create_strategy(self):
-        return AllerVersB()
+
 
 
 """tir au but"""        
@@ -95,8 +92,7 @@ class TirBut(SoccerStrategy):
             return SoccerAction(pos,shoot)
     def copy(self):
         return TirBut()
-    def create_strategy(self):
-        return TirBut()        
+     
         
 """se met en position de goal puis fonce sur la balle"""        
 """class GoalToGoal(SoccerStrategy):
@@ -133,8 +129,7 @@ class Static(SoccerStrategy):
         return SoccerAction(Vector2D(0,0),Vector2D(0,0))
     def copy(self):
         return Static()
-    def create_strategy(self):
-        return Static()
+
 
 """diriger vers un point"""
 """class DirPoint(SoccerStrategy):
@@ -163,25 +158,30 @@ class Goal(SoccerStrategy):
         pass
     def compute_strategy(self,state,player,teamid):
         if(teamid==1):
-                        
             a=(state.ball.position+state.get_goal_center(1))
             a.x=a.x/2
             a.y=a.y/2
             a=a-player.position
-            return SoccerAction(a,Vector2D(10,-10))  
+            if(state.ball.position.y>45):
+                shoot=Vector2D(10,10)
+            else:
+                shoot=Vector2D(10,-10)   
+            return SoccerAction(a,shoot)  
         else:
             a= (state.ball.position+state.get_goal_center(2))
             a.x=a.x/2
             a.y=a.y/2
-            """shoot = state.get_goal_center(2)-player.position"""
             a=a-player.position
+            if(state.ball.position.y>45):
+                shoot=Vector2D(-10,10)
+            else:
+                shoot=Vector2D(-10,-10) 
             return SoccerAction(a,Vector2D(-10,-10))  
             
             
     def copy(self):
         return Goal()
-    def create_strategy(self):
-        return Goal()            
+          
             
             
 
