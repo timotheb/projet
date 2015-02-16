@@ -3,6 +3,7 @@ from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from soccersimulator import pyglet
 from strats import *
 
+
 team1=SoccerTeam("team1")
 team2=SoccerTeam("team2")
 team3=SoccerTeam("Relegation")

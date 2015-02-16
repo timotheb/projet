@@ -1,7 +1,7 @@
 from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerAction, SoccerStrategy
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from soccersimulator import PLAYER_RADIUS, BALL_RADIUS
-
+from soccersimulator import GAME_HEIGHT
 
 """strategie de test"""
 class RandomStrategy(SoccerStrategy):
@@ -160,29 +160,29 @@ class Goal(SoccerStrategy):
     def compute_strategy(self,state,player,teamid):
         if(teamid==1):
             a=(state.ball.position+state.get_goal_center(1))
-            a.x=a.x/2
-            a.y=a.y/2
+            a.x=a.x/2.02
+            a.y=a.y/2+0.125*(state.ball.position.y-45)
             a=a-player.position
-            if(state.ball.position.y>45):
+            if(state.ball.position.y<(GAME_HEIGHT*0.5)):
                 shoot=Vector2D(10,10)
             else:
                 shoot=Vector2D(10,-10)   
             return SoccerAction(a,shoot)  
         else:
             a= (state.ball.position+state.get_goal_center(2))
-            a.x=a.x/2
-            a.y=a.y/2
+            a.x=a.x/2.02
+            a.y=a.y/2+0.125*(state.ball.position.y-45)
             a=a-player.position
-            if(state.ball.position.y>45):
+            if(state.ball.position.y<(GAME_HEIGHT*0.5)):
                 shoot=Vector2D(-10,10)
             else:
                 shoot=Vector2D(-10,-10) 
-            return SoccerAction(a,Vector2D(-10,-10))  
-            
-            
+            return SoccerAction(a,shoot)  
     def copy(self):
         return Goal()
-          
+         
+
+
             
             
 
