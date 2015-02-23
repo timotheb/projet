@@ -159,9 +159,9 @@ class Goal(SoccerStrategy):
         pass
     def compute_strategy(self,state,player,teamid):
         if(teamid==1):
-            a=(state.ball.position+state.get_goal_center(1))
-            a.x=a.x/2.02
-            a.y=a.y/2+0.125*(state.ball.position.y-45)
+            a=(state.ball.position+state.ball.speed+state.get_goal_center(1))
+            a.x=a.x/2.20
+            a.y=a.y/2+0.4*(state.ball.position.y+state.ball.speed.y-45)
             a=a-player.position
             if(state.ball.position.y<(GAME_HEIGHT*0.5)):
                 shoot=Vector2D(10,10)
@@ -169,9 +169,9 @@ class Goal(SoccerStrategy):
                 shoot=Vector2D(10,-10)   
             return SoccerAction(a,shoot)  
         else:
-            a= (state.ball.position+state.get_goal_center(2))
-            a.x=a.x/2.02
-            a.y=a.y/2+0.125*(state.ball.position.y-45)
+            a= (state.ball.position+state.ball.speed+state.get_goal_center(2))
+            a.x=a.x/2.20
+            a.y=a.y/2+0.4*(state.ball.position.y+state.ball.speed.y-45)
             a=a-player.position
             if(state.ball.position.y<(GAME_HEIGHT*0.5)):
                 shoot=Vector2D(-10,10)
@@ -181,8 +181,69 @@ class Goal(SoccerStrategy):
     def copy(self):
         return Goal()
          
+class Attaquant(SoccerStrategy):
+	def __init__(self):
+		self.bal= ComposeStrategy(AllerVersBalle(),TirerRd())
+		self.fonce = FonceurStrategy()
+		self.ale = ComposeStrategy(AllerVersBalle(),Aleatoire())
+	def compute_strategy(self,state,player,teamid):
+		g = state.get_goal_center(self.getad(teamid))
+		gadv = state.get_goal_center(need.get(teamid))
+		b = state.ball.position
+		gadvb = gadv - b
+		dist= b - player.position
+		gb = g - b
+		if ((b.x==GAME_WIDTH/2.0 and b.y==GAME_HEIGHT/2.0) or (gadvb.norm < GAME_WIDTH/6.0)):
+			return self.bal.compute_strategy(state,player,teamid)
+		elif gb.norm < GAME_WIDTH/8.0:
+			return self.ale.compute_strategy(state,player,teamid)
+		else:
+			return self.fonce.compute_strategy(state,player,teamid)
+	def start_battle(self,state):
+		pass
+	def finish_battle(self,won):
+		pass
+	def getad(self,teamid):
+		if(teamid == 1):
+			return 1
+		else:
+			return 2       
+       
+        
 
+class Aleatoire(SoccerStrategy):
+    def __init__(self):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        g = state.get_goal_center(need.get(teamid))
+        b = state.ball.position
+        dist= b - player.position
+        gb = state.get_goal_center(need.get(teamid)) - player.position
+        shoot = Vector2D.create_polar(gb.angle + random.uniform(-1,1),g.norm)
+        return SoccerAction(dist,shoot)
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass          
 
+class TirerRd(SoccerStrategy):
+    def __init__(self):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        g = state.get_goal_center(self.get(teamid))
+        b = state.ball.position
+        gb = state.get_goal_center(self.get(teamid)) - player.position
+        #de=Vector2D.create_polar(player.angle, g.norm)
+        dr= Vector2D.create_polar(player.angle+random.random(),g.norm)
+        direc = Vector2D()
+        return SoccerAction(direc,dr)
+    def create_strategy(self):
+        return TirerRd()
+    def get(self,teamid):
+        if(teamid == 1):
+            return 2
+        else:
+            return 1 
             
             
 
@@ -190,3 +251,5 @@ class Goal(SoccerStrategy):
 
 
             
+
+

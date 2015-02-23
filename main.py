@@ -21,3 +21,4 @@ bat= SoccerBattle(team2,team1)
 obs=PygletObserver()
 obs.set_soccer_battle(bat)
 pyglet.app.run()
+

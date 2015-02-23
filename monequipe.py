@@ -4,15 +4,15 @@ from soccersimulator import pyglet
 from strats import *
 
 
-team1=SoccerTeam("team1")
-team2=SoccerTeam("team2")
-team3=SoccerTeam("Relegation")
-team4=SoccerTeam("Meet Your Maker")
+team1=SoccerTeam("AppleJack")
+team2=SoccerTeam("BowTie")
+team3=SoccerTeam("Cupcake")
+team4=SoccerTeam("Posey")
 team1.add_player(SoccerPlayer("Neuyer",FonceurStrategy()))
 team2.add_player(SoccerPlayer("Ronaldo",FonceurStrategy()))
 team2.add_player(SoccerPlayer("Neuyer",Goal()))
 team3.add_player(SoccerPlayer("Neuyer",FonceurStrategy()))
-team3.add_player(SoccerPlayer("Ronaldo",FonceurStrategy()))
+team3.add_player(SoccerPlayer("Ronaldo",Goal()))
 team4.add_player(SoccerPlayer("2",FonceurStrategy()))
 team4.add_player(SoccerPlayer("3Neuyer",FonceurStrategy()))
 team4.add_player(SoccerPlayer("4Ronaldo",FonceurStrategy()))
