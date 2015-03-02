@@ -1,7 +1,7 @@
 from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerAction, SoccerStrategy
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from soccersimulator import PLAYER_RADIUS, BALL_RADIUS
-from soccersimulator import GAME_HEIGHT
+from soccersimulator import GAME_HEIGHT,GAME_WIDTH, GAME_GOAL_HEIGHT
 
 """strategie de test"""
 class RandomStrategy(SoccerStrategy):
@@ -158,25 +158,20 @@ class Goal(SoccerStrategy):
     def finish_battle(self,won):
         pass
     def compute_strategy(self,state,player,teamid):
-        if(teamid==1):
-            a=(state.ball.position+state.ball.speed+state.get_goal_center(1))
-            a.x=a.x/2.20
-            a.y=a.y/2+0.4*(state.ball.position.y+state.ball.speed.y-45)
-            a=a-player.position
+            p=player.position
             if(state.ball.position.y<(GAME_HEIGHT*0.5)):
                 shoot=Vector2D(10,10)
             else:
-                shoot=Vector2D(10,-10)   
-            return SoccerAction(a,shoot)  
-        else:
-            a= (state.ball.position+state.ball.speed+state.get_goal_center(2))
-            a.x=a.x/2.20
-            a.y=a.y/2+0.4*(state.ball.position.y+state.ball.speed.y-45)
-            a=a-player.position
-            if(state.ball.position.y<(GAME_HEIGHT*0.5)):
-                shoot=Vector2D(-10,10)
+                shoot=Vector2D(10,-10)
+            if (teamid==1):
+                a=(state.ball.position+state.ball.speed+state.get_goal_center(1))
+                a.x=a.x/2.0
             else:
-                shoot=Vector2D(-10,-10) 
+                shoot.x=-10
+                a=(state.ball.position+state.ball.speed+state.get_goal_center(2))
+                a.x=a.x/2.1             
+            a.y=a.y/2+0.35*(state.ball.position.y+state.ball.speed.y-45)
+            a=a-p
             return SoccerAction(a,shoot)  
     def copy(self):
         return Goal()
@@ -233,7 +228,7 @@ class TirerRd(SoccerStrategy):
         g = state.get_goal_center(self.get(teamid))
         b = state.ball.position
         gb = state.get_goal_center(self.get(teamid)) - player.position
-        #de=Vector2D.create_polar(player.angle, g.norm)
+        de=Vector2D.create_polar(player.angle, g.norm)
         dr= Vector2D.create_polar(player.angle+random.random(),g.norm)
         direc = Vector2D()
         return SoccerAction(direc,dr)
@@ -245,11 +240,27 @@ class TirerRd(SoccerStrategy):
         else:
             return 1 
             
-            
-
-
-
-
-            
+class TirLucarne (SoccerStrategy):
+    def __init__(self):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        g = state.get_goal_center(2)		    	
+        b = state.ball.position+state.ball.speed
+        p=player.position
+        bp = b-p
+        bp.x=bp.x*1.2
+        bp.y=bp.y*1.2
+        if(p.y>(GAME_HEIGHT/2)):
+		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2)-p
+        else:
+		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2)-p
+        if (teamid==1):
+            if(p.y>(GAME_HEIGHT/2)):
+                shoot=Vector2D(0,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2)-p
+            else:
+                shoot=Vector2D(0,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2)-p
+        return SoccerAction(bp,shoot)
+    def create_strategy(self):
+        return TirLucarne()
 
 
