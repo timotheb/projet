@@ -254,7 +254,7 @@ class TirLucarne (SoccerStrategy):
 		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2)-p
         else:
 		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2)-p
-        if (teamid==1):
+        if (teamid==2):
             if(p.y>(GAME_HEIGHT/2)):
                 shoot=Vector2D(0,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2)-p
             else:
