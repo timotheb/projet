@@ -202,11 +202,9 @@ class Goalv2(SoccerStrategy):
             else:
                 shoot.x=-10
                 a=(state.ball.position+state.ball.speed+state.get_goal_center(2))
-                a.x=a.x/2.1             
-            a.y=a.y/2+0.40*(state.ball.position.y+state.ball.speed.y-45)
+                a.x=a.x/2.0             
+            a.y=a.y/2+0.48*(state.ball.position.y+state.ball.speed.y-45)
             a=a-p
-            if((PLAYER_RADIUS+BALL_RADIUS)<(dis.norm)):
-			shoot=Vector2D(0,0)
             if((PLAYER_RADIUS+BALL_RADIUS)>((dis+state.ball.speed).norm)):
                 a=Vector2D(0,0)
             return SoccerAction(a,shoot)  
@@ -289,18 +287,18 @@ class TirLucarne (SoccerStrategy):
         bp.x=bp.x*1.2
         bp.y=bp.y*1.2
         if teamid==2:
-            bp.x=bp.x-1
+            bp.x=bp.x+0.5
         else:
-            bp.x=bp.x+1
+            bp.x=bp.x-0.5
         if(p.y>(GAME_HEIGHT/2)):
-		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-0.5)-p-state.ball.speed
+		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-0.5)-state.ball.position-state.ball.speed
         else:
-		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-p-state.ball.speed
+		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-state.ball.position-state.ball.speed
         if (teamid==2):
             if(p.y>(GAME_HEIGHT/2)):
-                shoot=Vector2D(0,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-0.5)-p-state.ball.speed
+                shoot=Vector2D(0,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-0.5)-state.ball.position-state.ball.speed
             else:
-                shoot=Vector2D(0,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-p-state.ball.speed
+                shoot=Vector2D(0,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-state.ball.position-state.ball.speed
         if((PLAYER_RADIUS+BALL_RADIUS)<(dis.norm)):
 			shoot=Vector2D(0,0)
         return SoccerAction(bp,shoot)
