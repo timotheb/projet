@@ -27,14 +27,16 @@ class FonceurStrategy(SoccerStrategy):
     def finish_battle(self,won):
         pass
     def compute_strategy(self,state,player,teamid):
+        dis=(state.ball.position-player.position)
         if(teamid==1):
-            pos = state.ball.position-player.position
+            pos = state.ball.position-player.position+state.ball.speed
             shoot = state.get_goal_center(2)-player.position
-            return SoccerAction(pos,shoot)
         else:
-            pos = state.ball.position-player.position
+            pos = state.ball.position-player.position+state.ball.speed
             shoot = state.get_goal_center(1)-player.position
-            return SoccerAction(pos,shoot)
+        if(PLAYER_RADIUS+BALL_RADIUS)<(dis.norm):
+		shoot=Vector2D(0,0)
+        return SoccerAction(pos,shoot)
     def copy(self):
         return FonceurStrategy()
 
@@ -158,6 +160,7 @@ class Goal(SoccerStrategy):
     def finish_battle(self,won):
         pass
     def compute_strategy(self,state,player,teamid):
+            dis=(state.ball.position-player.position)
             p=player.position
             if(state.ball.position.y<(GAME_HEIGHT*0.5)):
                 shoot=Vector2D(10,10)
@@ -172,9 +175,43 @@ class Goal(SoccerStrategy):
                 a.x=a.x/2.1             
             a.y=a.y/2+0.35*(state.ball.position.y+state.ball.speed.y-45)
             a=a-p
+            if((PLAYER_RADIUS+BALL_RADIUS)<(dis.norm)):
+			shoot=Vector2D(0,0)
             return SoccerAction(a,shoot)  
     def copy(self):
         return Goal()
+        
+"""goalv2"""
+class Goalv2(SoccerStrategy):
+    def __init__(self):
+        self.name="Goalv2"
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid):
+            dis=(state.ball.position-player.position)
+            p=player.position
+            if(state.ball.position.y<(GAME_HEIGHT*0.5)):
+                shoot=Vector2D(10,10)
+            else:
+                shoot=Vector2D(10,-10)
+            if (teamid==1):
+                a=(state.ball.position+state.ball.speed+state.get_goal_center(1))
+                a.x=a.x/2.0
+            else:
+                shoot.x=-10
+                a=(state.ball.position+state.ball.speed+state.get_goal_center(2))
+                a.x=a.x/2.1             
+            a.y=a.y/2+0.40*(state.ball.position.y+state.ball.speed.y-45)
+            a=a-p
+            if((PLAYER_RADIUS+BALL_RADIUS)<(dis.norm)):
+			shoot=Vector2D(0,0)
+            if((PLAYER_RADIUS+BALL_RADIUS)>((dis+state.ball.speed).norm)):
+                a=Vector2D(0,0)
+            return SoccerAction(a,shoot)  
+    def copy(self):
+        return Goalv2()
          
 class Attaquant(SoccerStrategy):
 	def __init__(self):
@@ -245,20 +282,27 @@ class TirLucarne (SoccerStrategy):
         pass
     def compute_strategy(self,state,player,teamid):
         g = state.get_goal_center(2)		    	
+        dis=(state.ball.position-player.position)
         b = state.ball.position+state.ball.speed
         p=player.position
         bp = b-p
         bp.x=bp.x*1.2
         bp.y=bp.y*1.2
-        if(p.y>(GAME_HEIGHT/2)):
-		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2)-p
+        if teamid==2:
+            bp.x=bp.x-1
         else:
-		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2)-p
+            bp.x=bp.x+1
+        if(p.y>(GAME_HEIGHT/2)):
+		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-0.5)-p-state.ball.speed
+        else:
+		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-p-state.ball.speed
         if (teamid==2):
             if(p.y>(GAME_HEIGHT/2)):
-                shoot=Vector2D(0,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2)-p
+                shoot=Vector2D(0,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-1.0)-p-state.ball.speed
             else:
-                shoot=Vector2D(0,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2)-p
+                shoot=Vector2D(0,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+2.0)-p-state.ball.speed
+        if((PLAYER_RADIUS+BALL_RADIUS)<(dis.norm)):
+			shoot=Vector2D(0,0)
         return SoccerAction(bp,shoot)
     def create_strategy(self):
         return TirLucarne()
