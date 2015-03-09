@@ -211,7 +211,7 @@ class Goalv2(SoccerStrategy):
     def copy(self):
         return Goalv2()
          
-class Attaquant(SoccerStrategy):
+"""class Attaquant(SoccerStrategy):
 	def __init__(self):
 		self.bal= ComposeStrategy(AllerVersBalle(),TirerRd())
 		self.fonce = FonceurStrategy()
@@ -238,7 +238,7 @@ class Attaquant(SoccerStrategy):
 			return 1
 		else:
 			return 2       
-       
+"""       
         
 
 class Aleatoire(SoccerStrategy):
