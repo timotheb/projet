@@ -298,9 +298,9 @@ class TirLucarne (SoccerStrategy):
 		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-p-state.ball.speed
         if (teamid==2):
             if(p.y>(GAME_HEIGHT/2)):
-                shoot=Vector2D(0,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-1.0)-p-state.ball.speed
+                shoot=Vector2D(0,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-0.5)-p-state.ball.speed
             else:
-                shoot=Vector2D(0,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+2.0)-p-state.ball.speed
+                shoot=Vector2D(0,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-p-state.ball.speed
         if((PLAYER_RADIUS+BALL_RADIUS)<(dis.norm)):
 			shoot=Vector2D(0,0)
         return SoccerAction(bp,shoot)
