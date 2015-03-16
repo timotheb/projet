@@ -15,7 +15,7 @@ team3.add_player(SoccerPlayer("Vanille",TirLucarne()))
 team3.add_player(SoccerPlayer("Chocolat",Goal()))
 team4.add_player(SoccerPlayer("Audmars-Piguet",Goal()))
 team4.add_player(SoccerPlayer("Omega",FonceurStrategy()))
-team4.add_player(SoccerPlayer("Cartier",FonceurStrategy()))
+team4.add_player(SoccerPlayer("Cartier",SelectorStrategy()))
 team4.add_player(SoccerPlayer("Rolex",TirLucarne()))
 teams =[team4,team4,team2,team1]
 teams1=[team4,team4,team2,team1]
