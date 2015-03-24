@@ -27,13 +27,10 @@ class outil(SoccerStrategy):
             return True
         else:
             return False
-    
-    
+
     def miroir(object):
         object.x=-object.x
         return object
 
     def allerVers(object,state):
         return object-player.posistion
-    
-            

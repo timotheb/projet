@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, SoccerAction, SoccerStrategy
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from soccersimulator import PLAYER_RADIUS, BALL_RADIUS
 from soccersimulator import GAME_HEIGHT,GAME_WIDTH, GAME_GOAL_HEIGHT
-from soccersimulator import outil
+import pickle
+
 
 """strategie de test"""
 class RandomStrategy(SoccerStrategy):
@@ -78,7 +81,7 @@ class TirBut(SoccerStrategy):
             return SoccerAction(pos,shoot)
     def copy(self):
         return TirBut()
-     
+
 
 """statique"""
 class Static(SoccerStrategy):
@@ -124,7 +127,7 @@ class Goal(SoccerStrategy):
             return SoccerAction(a,shoot)  
     def copy(self):
         return Goal()
-        
+
 """goalv2"""
 class Goalv2(SoccerStrategy):
     def __init__(self):
@@ -154,9 +157,8 @@ class Goalv2(SoccerStrategy):
             return SoccerAction(a,shoot)  
     def copy(self):
         return Goalv2()
-         
-      
-        
+
+
 
 class Aleatoire(SoccerStrategy):
     def __init__(self):
@@ -191,12 +193,17 @@ class TirerRd(SoccerStrategy):
             return 2
         else:
             return 1 
-            
-class TirLucarne (SoccerStrategy):
+
+
+class TirLucarne(SoccerStrategy):
     def __init__(self):
+        self.name="TirLucarne"
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
         pass
     def compute_strategy(self,state,player,teamid):
-        g = state.get_goal_center(2)		    	
+        g = state.get_goal_center(2)
         dis=(state.ball.position-player.position)
         b = state.ball.position+state.ball.speed
         p=player.position
@@ -208,9 +215,9 @@ class TirLucarne (SoccerStrategy):
         else:
             bp.x=bp.x-0.5
         if(p.y>(GAME_HEIGHT/2)):
-		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-0.5)-state.ball.position-state.ball.speed
+            shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-0.5)-state.ball.position-state.ball.speed
         else:
-		shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-state.ball.position-state.ball.speed
+            shoot=Vector2D(GAME_WIDTH,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-state.ball.position-state.ball.speed
         if (teamid==2):
             if(p.y>(GAME_HEIGHT/2)):
                 shoot=Vector2D(0,GAME_HEIGHT/2+GAME_GOAL_HEIGHT/2-0.5)-state.ball.position-state.ball.speed
@@ -222,31 +229,9 @@ class TirLucarne (SoccerStrategy):
     def create_strategy(self):
         return TirLucarne()
 
-"""la liste des stratégies pour le sélecteur de stratégie"""
-
-class ListStrategy(SoccerStrategy):
-    def __init__(self):
-        self.name="Abstract list strategy"
-        self.strategies=[]
-    def begin_battles(self,state,count,max_step):
-        for s in self.strategies:
-            s.begin_battles(state,count,max_step)
-    def add_strategy(self,strat):
-        self.strategies.append(strat)
-    def start_battle(self,state):
-        for s in self.strategies:
-            s.start_battle(state)
-    def finish_battle(self,won):
-        for s in self.strategies:
-            s.finish_battle(won)
-    def end_battles(self):
-        for s in self.strategies:
-            s.end_battles()
-
-
 """selecteur de strats"""
 
-class SelectorStrategy(ListStrategy):
+"""class SelectorStrategy(ListStrategy):
     def __init__(self):
         self.name="Selecteur elegant"
         self.strategies = [TirLucarne,Goalv2]
@@ -257,7 +242,7 @@ class SelectorStrategy(ListStrategy):
                 return i
         return -1
     def compute_strategy(self,state,player,teamid):
-        return self.strategies[self.selector(state,player,teamid)].compute_strategies(state,player,teamid)
+        return self.strategies[self.selector(state,player,teamid)].compute_strategies(state,player,teamid)"""
 
 """class Attaquant(SoccerStrategy):
 	def __init__(self):
