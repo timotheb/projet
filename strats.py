@@ -229,6 +229,61 @@ class TirLucarne(SoccerStrategy):
     def create_strategy(self):
         return TirLucarne()
 
+class DepHaut(SoccerStrategy):
+    def __init__(self):
+        self.name="Haut"    
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        return SoccerAction(Vector2D(0,2),Vector2D(0,0))
+    def create_strategy(self):
+        return DepHaut()   
+
+
+class DepBas(SoccerStrategy):
+    def __init__(self):
+        self.name="Bas"    
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        return SoccerAction(Vector2D(0,-2),Vector2D(0,0))
+    def create_strategy(self):
+        return DepBas() 
+
+
+class DepGauche(SoccerStrategy):
+    def __init__(self):
+        self.name="Gauche"    
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        return SoccerAction(Vector2D(-2,0),Vector2D(0,0))
+    def create_strategy(self):
+        return DepGauche() 
+        
+class DepDroite(SoccerStrategy):
+    def __init__(self):
+        self.name="Droite"    
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid):
+        return SoccerAction(Vector2D(2,0),Vector2D(0,0))
+    def create_strategy(self):
+        return DepDroite() 
+    
+    
+    
+    
+    
+    
 """selecteur de strats"""
 
 """class SelectorStrategy(ListStrategy):

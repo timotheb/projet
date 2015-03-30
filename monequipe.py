@@ -9,16 +9,23 @@ list_strat=[TirLucarne(),Goalv2()]
 list_nom=["TirLucarne","Goalv2"]
 inter_strat=InteractStrategy(list_key,list_strat,"tent3.2.pkl")
 
+list_key2=['a','e','z','s','q','d']
+list_strat2=[TirLucarne(),Goalv2(),DepHaut(),DepBas(),DepGauche(),DepDroite()]
+list_nom2=["TirLucarne","Goalv2","Haut","Bas","Gauche","Droite"]
+inter_strat2=InteractStrategy(list_key2,list_strat2,"tent3.4.pkl")
 
 team1=SoccerTeam("AppleJack")
 team2=SoccerTeam("BowTie")
 team3=SoccerTeam("Cupcake")
 team4=SoccerTeam("Posey")
+team5=SoccerTeam("test1v1")
 
-team1.add_player(SoccerPlayer("60degres",TirLucarne()))
+team1.add_player(SoccerPlayer("60degres",inter_strat2))
+
+team5.add_player(SoccerPlayer("60degres",TirLucarne()))
 
 team2.add_player(SoccerPlayer("Classy",TirLucarne()))
-team2.add_player(SoccerPlayer("Handsome",inter_strat))
+team2.add_player(SoccerPlayer("Handsome",inter_strat2))
 
 
 
@@ -35,16 +42,16 @@ team4.add_player(SoccerPlayer("Rolex",TirLucarne()))
 
 team_tree = SoccerTeam("Team Tree")
 
-treeia=TreeIA(gen_feature_simple,dict(zip(list_nom,list_strat)))
+treeia=TreeIA(gen_feature_simple,dict(zip(list_nom2,list_strat2)))
 
-fn=os.path.join(os.path.dirname(os.path.realpath(__file__)),"myfirsttree.pkl")
+fn=os.path.join(os.path.dirname(os.path.realpath(__file__)),"tree3.pkl")
 treeia.load(fn)
-TreeST=TreeStrategy("tree1",treeia)
+TreeST=TreeStrategy("tree3",treeia)
 
 team_tree.add_player(SoccerPlayer("Tree 1",TreeST))
 team_tree.add_player(SoccerPlayer("Tree 2",TreeST))
 
 
 
-teams =[team2,team3,team4,team1,team_tree]
+teams =[team2,team3,team4,team1,team5,team_tree]
 teams1=[team2,team3,team4,team1,team_tree]
