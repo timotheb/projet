@@ -53,5 +53,5 @@ team_tree.add_player(SoccerPlayer("Tree 2",TreeST))
 
 
 
-teams =[team2,team3,team4,team1,team5,team_tree]
-teams1=[team2,team3,team4,team1,team_tree]
+teams =[team_tree,team2,team3,team4,team1,team5]
+teams1=[team_tree,team2,team3,team4,team1]
