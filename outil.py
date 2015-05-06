@@ -10,7 +10,10 @@ class outil(SoccerStrategy):
             return True
         else:
             return False
-"""rend True si la balle est dans la moitié de son equipe"""            
+
+
+
+      
     def posBX(state):
         if(teamid==1):
             if(state.ball.position.x<(GAME_WIDTH/2)):
@@ -22,7 +25,8 @@ class outil(SoccerStrategy):
                 return False
             else:
                 return True 
-    def canShoot:
+    
+    def canShoot(state):
         if((PLAYER_RADIUS+BALL_RADIUS)<(state.ball.position-player.position).norm):
             return True
         else:
@@ -34,3 +38,28 @@ class outil(SoccerStrategy):
 
     def allerVers(object,state):
         return object-player.posistion
+    
+    def ballInMud(state):
+        for zone in state.danger_zones:
+            if (zone.contains(state.ball.position) and zone.type=="mud"):
+                return True 
+        return False
+    
+    def ballInIce(state):
+        for zone in state.danger_zones:
+            if (zone.contains(state.ball.position) and zone.type=="ice"):
+                return True 
+        return False
+        
+    def playerInMud(state):
+        for zone in state.danger_zones:
+            if (zone.contains(player.position) and zone.type=="mud"):
+                return True 
+        return False
+    
+    def playerInIce(state):
+        for zone in state.danger_zones:
+            if (zone.contains(player.position) and zone.type=="ice"):
+                return True 
+        return False    
+    

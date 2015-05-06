@@ -4,6 +4,7 @@ from soccersimulator import Vector2D, SoccerBattle, SoccerPlayer, SoccerTeam, So
 from soccersimulator import PygletObserver,ConsoleListener,LogListener
 from soccersimulator import PLAYER_RADIUS, BALL_RADIUS
 from soccersimulator import GAME_HEIGHT,GAME_WIDTH, GAME_GOAL_HEIGHT
+from outil import *
 import pickle
 
 
@@ -225,6 +226,8 @@ class TirLucarne(SoccerStrategy):
                 shoot=Vector2D(0,GAME_HEIGHT/2-GAME_GOAL_HEIGHT/2+0.5)-state.ball.position-state.ball.speed
         if((PLAYER_RADIUS+BALL_RADIUS)<(dis.norm)):
 			shoot=Vector2D(0,0)
+        if outil.playerInIce and outil.ballInIce:
+            bp.product(1/1.8);
         return SoccerAction(bp,shoot)
     def create_strategy(self):
         return TirLucarne()
@@ -279,6 +282,21 @@ class DepDroite(SoccerStrategy):
     def create_strategy(self):
         return DepDroite() 
     
+class Def(SoccerStrategy):
+    def _init_(self):
+        self.name="def"
+    def start_battle(self,state):
+        pass
+    def finish_battle(self,won):
+        pass
+    def compute_strategy(self,state,player,teamid,nb):
+            ennemi=get_player(self,(teamid-3)*(-1),nb)
+            if ((ennemi.position-state.ball.position).norm <5):
+                return SoccerAction(ennemi.position-player.position,Vector2D(0,0))
+            else:
+                return Goalv2
+    def create_strategy(self):
+        return DepDroite() 
     
     
     

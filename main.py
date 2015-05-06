@@ -9,7 +9,7 @@ from monequipe import teams
 import pickle
 
 team1=teams[1]
-team2=teams[0]
+team2=teams[2]
 
 battle= SoccerBattle(team2,team1)
 obs=PygletObserver()

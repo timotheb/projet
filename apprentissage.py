@@ -11,7 +11,7 @@ import pickle
 import os
 
 from soccersimulator import *
-from strats import *
+import strats
 
 # Quelques generateurs de features
 def teamid(state,teamid,playerid):

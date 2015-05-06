@@ -1,5 +1,6 @@
 from soccersimulator import *
 from strats import *
+from outil import *
 import os
 import pickle
 from apprentissage import gen_feature_simple
